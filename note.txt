@@ -1,0 +1,77 @@
+- DDD - Domain driven design
+- Domain : nghiệp vụ
+- Driven : hướng tới
+- Design : thiết kế
+
+- Chuyên gia lập trình   - health care
+    - chỉ biết code , kh giỏi nghiệp vụ
+    - có thể hoàn thiện sản phẩm  -> lệch khía cạnh nghiệp vụ
+- chuyên gia nghiệp vụ 
+    - BA (Business Analyst)
+    - chỉ biết nghiệp vụ, kh giỏi code
+    - có thể hoàn thiện sản phẩm  -> lệch khía cạnh lập trình
+
+- Kết hợp cả hai chuyên gia 
+    -> Domain : nghiệp vụ  (không liên quan đến ngôn ngữ lập trình , thư viện ) (Irepo)
+         - đảm bảo nghiệp vụ 
+         - công thức tính toán
+         - quy tắc ....
+         - không CÀI THƯ VIỆN
+         -- Lấy ds sản phẩm đang bán
+         VAI TRÒ: Chịu trách nhiệm về nghiệp vụ, đảm bảo các quy tắc và công thức tính toán được thực hiện đúng.
+    -> Infractructure : thực thi cái yêu cầu nghiệp vụ từ domain (repo)
+        - Thực hiện các thao tác với cơ sở dữ liệu hoặc các dịch vụ bên ngoài theo yêu cầu từ Domain.
+        - VAI TRÒ: Chịu trách nhiệm về việc thực thi các yêu cầu nghiệp vụ từ Domain, đảm bảo dữ liệu được lưu trữ và truy xuất đúng cách.
+        - CÀI:  
+    -> Application : điều phối các yêu cầu từ Presentation đến Domain và Infrastructure (service)
+        - 
+    -> Presentation: giao diện người dùng, nơi người dùng tương tác với hệ thống (API, controller)
+        - controller
+
+
+
+- Tạo sln 
+    - 4 projects: Domain, Infrastructure, Application, Presentation
+
+    - src
+        - SalesDb.Domain
+        - SalesDb.Infrastructure (repository) 
+        - SalesDb.Application
+        - SalesDb.Presentation
+    SalesDb.sln
+
+
+
+
+
+    STEP
+    dotnet new sln -n SalesDb
+    dotnet new classlib -n SalesDb.Domain -o src/SalesDb.Domain 
+    dotnet new classlib -n SalesDb.Application -o src/SalesDb.Application 
+    dotnet new classlib -n SalesDb.Infrastructure -o src/SalesDb.Infrastructure 
+    dotnet new webapi -n SalesDb.Api -o src/SalesDb.Api
+
+    dotnet sln add src/**/*.csproj
+
+    -- thêm phụ thuộc
+    dotnet add src/SalesDb.Application reference src/SalesDb.Domain
+    dotnet add src/SalesDb.Infrastructure reference src/SalesDb.Application
+    dotnet add src/SalesDb.Api reference src/SalesDb.Application src/SalesDb.Infrastructure
+
+    -- Cai nuget    
+    # infrastructure
+    dotnet add src/SalesDb.Infrastructure package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet add src/SalesDb.Infrastructure package Microsoft.EntityFrameworkCore.Design
+    dotnet add src/SalesDb.Infrastructure package Microsoft.Extensions.Caching.StackExchangeRedis
+    dotnet add src/SalesDb.Infrastructure package System.IdentityModel.Tokens.Jwt
+
+    # Presentation
+    dotnet add src/SalesDb.Api package Microsoft.AspNetCore.Authentication.JwtBearer
+    dotnet add src/SalesDb.Api package Swashbuckle.AspNetCore
+
+    # application
+    dotnet add src/SalesDb.Application package AutoMapper
+
+
+
+
