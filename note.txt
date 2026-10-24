@@ -20,13 +20,16 @@
          -- Lấy ds sản phẩm đang bán
          VAI TRÒ: Chịu trách nhiệm về nghiệp vụ, đảm bảo các quy tắc và công thức tính toán được thực hiện đúng.
     -> Infractructure : thực thi cái yêu cầu nghiệp vụ từ domain (repo)
-        - Thực hiện các thao tác với cơ sở dữ liệu hoặc các dịch vụ bên ngoài theo yêu cầu từ Domain.
+        - Thực hiện các thao tác với cơ sở dữ liệu hoặc các dịch vụ bên ngoài theo yêu cầu từ Domain.ß
         - VAI TRÒ: Chịu trách nhiệm về việc thực thi các yêu cầu nghiệp vụ từ Domain, đảm bảo dữ liệu được lưu trữ và truy xuất đúng cách.
         - CÀI:  
+        - CHi tiết kỹ thuật : EF ,  redis
     -> Application : điều phối các yêu cầu từ Presentation đến Domain và Infrastructure (service)
-        - 
-    -> Presentation: giao diện người dùng, nơi người dùng tương tác với hệ thống (API, controller)
+        - tình huống nghiệp vụ, use caseesac, điều phối các yêu cầu đến đến domain (quy định nghiệp vụ ) chi tiết thực hiện trong Infrastructure.
+    -> Presentation (API): giao diện người dùng, nơi người dùng tương tác với hệ thống (API, controller)
         - controller
+        - Giao tiếp HTTP
+        - gọi các service từ Application để thực hiện nghiệp vụ
 
 
 
@@ -40,7 +43,7 @@
         - SalesDb.Presentation
     SalesDb.sln
 
-
+     DDD  - tập trung vào mô hình và nghiệp vụ 
 
 
 

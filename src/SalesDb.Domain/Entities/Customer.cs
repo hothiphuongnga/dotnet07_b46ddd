@@ -4,6 +4,7 @@ namespace SalesDb.Domain.Entities;
 
 public class Customer : BaseEntity<int>
 {
+    // lấy ID từ BaseEntity
     public string Name { get; set; } = null!;
 
     public string? Email { get; set; }

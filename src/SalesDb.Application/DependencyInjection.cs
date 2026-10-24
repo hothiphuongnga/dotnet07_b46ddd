@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SalesDb.Application.Common;
 using SalesDb.Application.Products;
 using SalesDb.Application.Mappings;
+using SalesDb.Application.Orders;
 
 namespace SalesDb.Application;
 
@@ -15,6 +16,8 @@ public static class DependencyInjection
 
         // Register repositories
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IOrderService, OrderService>();
+        
 
         return services;
     }

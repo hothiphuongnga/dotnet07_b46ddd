@@ -24,9 +24,18 @@ public class AppDbContext : DbContext, IUnitOfWork
     {
         b.Entity<Employee>().Property(x => x.Id).HasColumnName("EmployeeID");
         b.Entity<Order>().Property(x => x.TotalAmount).HasPrecision(18, 2);
+        // EF Core: lưu OrderStatus enum thành chuỗi trong database.
+        b.Entity<Order>().Property(x => x.Status).HasConversion<string>();
+        b.Entity<Order>()
+            .HasMany(x => x.OrderDetails)
+            .WithOne(x => x.Order)
+            .HasForeignKey(x => x.OrderID)
+            .OnDelete(DeleteBehavior.Cascade);
+        b.Entity<Order>().Navigation(x => x.OrderDetails).UsePropertyAccessMode(PropertyAccessMode.Field);
         b.Entity<OrderDetail>().Property(x => x.Price).HasPrecision(18, 2);
         b.Entity<Product>().Property(x => x.Price).HasPrecision(18, 2);
         b.Entity<Order>().HasOne(o => o.Employee).WithMany().HasForeignKey(o => o.EmployeeID);
         b.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
+
 }

@@ -1,6 +1,7 @@
 namespace SalesDb.Domain.Common;
 
 // ID la PK
+// các entity : ánh xạ tới các bảng trong cơ sở dữ liệu
 public abstract class BaseEntity<TKey>
 {
     public TKey Id { get; set; } = default!;

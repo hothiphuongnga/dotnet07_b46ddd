@@ -18,6 +18,9 @@ public static class DependencyInjection
 
         // Register repositories
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+
+
 
         // DI UOW
         services.AddScoped<IUnitOfWork>(sp=> sp.GetRequiredService<AppDbContext>());
