@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SalesDb.Domain.Entities;
 using SalesDb.Domain.Interfaces;
 using SalesDb.Infrastructure.Persistence;
@@ -8,5 +9,12 @@ public class ProductRepository : RepositoryBase<Product, int>, IProductRepositor
 {
     public ProductRepository(AppDbContext db) : base(db)
     {
+        
+        
+    }
+
+    public async Task<Product?> GetWithImagesAsync(int productId)
+    {
+        return await Db.Products.Include(p=> p.ProductImages).SingleOrDefaultAsync(p=> p.Id == productId);
     }
 }

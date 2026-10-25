@@ -19,6 +19,7 @@ public class AppDbContext : DbContext, IUnitOfWork
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -34,7 +35,16 @@ public class AppDbContext : DbContext, IUnitOfWork
         b.Entity<Order>().Navigation(x => x.OrderDetails).UsePropertyAccessMode(PropertyAccessMode.Field);
         b.Entity<OrderDetail>().Property(x => x.Price).HasPrecision(18, 2);
         b.Entity<Product>().Property(x => x.Price).HasPrecision(18, 2);
+        b.Entity<Product>().HasMany(x => x.ProductImages).WithOne(x => x.Product).HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Cascade);
+        b.Entity<Product>()
+            .Navigation(p => p.ProductImages)
+            .HasField("_images")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
         b.Entity<Order>().HasOne(o => o.Employee).WithMany().HasForeignKey(o => o.EmployeeID);
+        b.Entity<ProductImage>()
+         .HasIndex(x => x.ProductId)
+         .IsUnique()
+         .HasFilter("[IsPrimary] = 1");
         b.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 

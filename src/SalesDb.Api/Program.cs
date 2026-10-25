@@ -39,6 +39,7 @@ builder.Services.AddSwaggerGen(option =>
             [new OpenApiSecuritySchemeReference("bearer", doc)] = []
         }
     );
+    option.EnableAnnotations(); // Bật hỗ trợ chú thích cho Swagger, cho phép sử dụng các thuộc tính như [SwaggerOperation] trong controller.
 });
 
 
@@ -65,6 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 
 
 app.UseHttpsRedirection();

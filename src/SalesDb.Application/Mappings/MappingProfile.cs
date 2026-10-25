@@ -1,4 +1,5 @@
 namespace SalesDb.Application.Mappings;
+
 using AutoMapper;
 using SalesDb.Application.Orders;
 using SalesDb.Application.Products;
@@ -12,5 +13,7 @@ public class MappingProfile : Profile
         CreateMap<ProductCreateDto, Product>();
 
         // CreateMap<OrderDto, Order>().ReverseMap();
+        CreateMap<ProductImage, ProductImageDto>();
+
     }
 }
